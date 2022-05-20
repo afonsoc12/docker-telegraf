@@ -1,0 +1,33 @@
+name: Checks for new releases and deploys master
+on:
+  schedule:
+    - cron: '25 * * * *'
+  workflow_dispatch:
+
+jobs:
+  external_trigger:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version_getter.outputs.version }}
+    steps:
+      - uses: actions/checkout@v2.3.3
+      
+      - name: Version diff
+        run: |
+          chmod u+x ./scripts/isUpdated.sh
+          ./scripts/isUpdated.sh
+
+      - id: version_getter
+        name: Trigger build check
+        if: ${{ hashFiles('DOCKER_VERSION.txt') != '' }}
+        run: |
+          version=$(cat DOCKER_VERSION.txt)
+          echo "Triggering because there is the new version $version"
+          echo "::set-output name=version::$version"
+          
+  trigger:
+    needs: external_trigger
+    uses: ./.github/workflows/docker_build_master.yml
+    secrets: inherit
+    with:
+      version: ${{ needs.external_trigger.outputs.version }}

@@ -9,7 +9,7 @@
 
 [telegraf](https://www.influxdata.com/time-series-platform/telegraf) is *"an agent for collecting metrics and writing them to InfluxDB or other outputs"*. 
 
-This repository automatically builds and pushes docker images for the latest releases of [telegraf](https://hub.docker.com/_/telegraf) official docker image, extending them with speedtest-cli, in both `linux/amd64` and `linux/arm64` architectures.
+This repository automatically builds and pushes docker images for the latest releases of [telegraf](https://hub.docker.com/_/telegraf) official docker image, extending them with sivel's [speedtest-cli](https://github.com/sivel/speedtest-cli), in both `linux/amd64` and `linux/arm64` architectures.
 
 # Instalation
 
@@ -23,7 +23,13 @@ docker pull afonsoc12/telegraf:latest
 The commands for this image are the same as the official image, e.g., to generate a sample configuration and save it on the host:
 
 ```shell
-docker run --rm afonsoc12/telegraf telegraf config > telegraf.conf
+docker run --rm afonsoc12/telegraf:latest telegraf config > telegraf.conf
+```
+
+In addition, this image is extended with speedtest-cli, so that it is available to telegraf. To test it out:
+
+```shell
+docker run --rm afonsoc12/telegraf:latest speedtest-cli
 ```
 
 Please consult [the official documentation](https://hub.docker.com/_/telegraf) on telegraf's repository.
