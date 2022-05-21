@@ -55,6 +55,8 @@ jobs:
           file: Dockerfile
           platforms: linux/arm64,linux/amd64
           push: true
+          build-args: |
+            TELEGRAF_VERSION=${{ needs.inputs.outputs.version }}
           tags: |
             afonsoc12/telegraf:latest
             afonsoc12/telegraf:${{ needs.inputs.outputs.version }}

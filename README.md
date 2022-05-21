@@ -26,7 +26,7 @@ The commands for this image are the same as the official image, e.g., to generat
 docker run --rm afonsoc12/telegraf:latest telegraf config > telegraf.conf
 ```
 
-In addition, this image is extended with speedtest-cli, so that it is available to telegraf. To test it out:
+In addition, this image is extended with speedtest-cli so that it is available to telegraf. To test it out:
 
 ```shell
 docker run --rm afonsoc12/telegraf:latest speedtest-cli
