@@ -2,7 +2,7 @@
 
 ext_tag=$(curl -s \
             -H "Accept: application/json" \
-            https://hub.docker.com/v2/repositories/library/telegraf/tags | jq -r '.["results"][1]["name"]')
+            https://hub.docker.com/v2/repositories/library/telegraf/tags | jq -r '.["results"][2]["name"]')
 
 echo "**** External release is $ext_tag"
 
