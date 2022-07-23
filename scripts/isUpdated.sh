@@ -37,4 +37,3 @@ else
     echo "    NEW version: $ext_tag"
     echo $ext_tag > $version_file
 fi
-
