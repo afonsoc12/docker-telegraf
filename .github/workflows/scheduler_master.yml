@@ -14,9 +14,7 @@ jobs:
 
       - name: Version diff
         shell: bash
-        run: |
-          chmod u+x ./scripts/isUpdated.sh
-          ./scripts/isUpdated.sh
+        run: ./scripts/isUpdated.sh
 
       - id: version_getter
         name: Trigger build check
