@@ -12,6 +12,14 @@ retrieve_latest_image () {
     echo $version
 }
 
+echo $(curl -s \
+                -H "Accept: application/json" \
+                https://hub.docker.com/v2/repositories/library/telegraf/tags | \
+                    jq -r '.["results"][]["name"]' | \
+                    grep -E '^(\d+\.)?(\d+\.)?(\*|\d+)$' | \
+                    sort -n -r | \
+                    head -n1)
+
 ext_tag=$(retrieve_latest_image 'library/telegraf')
 
 echo "**** External release is $ext_tag"
