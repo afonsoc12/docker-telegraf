@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Check exiting tools
+echo "curl: $(curl --version)"
+echo "grep: $(grep --version)"
+echo "jq: $(jq --version)"
+echo "sort: $(sort --version)"
+echo "head: $(head --version)"
+
 retrieve_latest_image () {
     image=$1
     local version=$(curl -s \
