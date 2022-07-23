@@ -1,14 +1,22 @@
 #!/bin/bash
 
-ext_tag=$(curl -s \
-            -H "Accept: application/json" \
-            https://hub.docker.com/v2/repositories/library/telegraf/tags | jq -r '.["results"][3]["name"]')
+retrieve_latest_image () {
+    image=$1
+    local version=$(curl -s \
+                -H "Accept: application/json" \
+                https://hub.docker.com/v2/repositories/$image/tags | \
+                    jq -r '.["results"][]["name"]' | \
+                    grep -E '^(\d+\.)?(\d+\.)?(\*|\d+)$' | \
+                    sort -n -r | \
+                    head -n1)
+    echo $version
+}
+
+ext_tag=$(retrieve_latest_image 'library/telegraf')
 
 echo "**** External release is $ext_tag"
 
-last_tag=$(curl -s \
-            -H "Accept: application/json" \
-            https://hub.docker.com/v2/repositories/afonsoc12/telegraf/tags | jq -r '.["results"][1]["name"]')
+last_tag=$(retrieve_latest_image 'afonsoc12/telegraf')
 
 echo "**** Last release is $ext_tag"
 
@@ -28,5 +36,5 @@ else
     echo "    Old version: $last_tag"
     echo "    NEW version: $ext_tag"
     echo $ext_tag > $version_file
-fi 
-            
+fi
+
