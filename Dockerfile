@@ -7,6 +7,7 @@ RUN apt-get update \
     && wget -O speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
     && mv speedtest-cli /usr/bin/speedtest-cli \
     && chmod +x /usr/bin/speedtest-cli \
+    && [ ! -f /usr/bin/python ] && ln -s /usr/bin/python3 /usr/bin/python \
     && rm -rf /tmp/* /var/{cache,log}/* /var/lib/apt/lists/*
 
 # Replace original entrypoint.sh
