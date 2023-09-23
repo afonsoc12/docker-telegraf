@@ -8,3 +8,6 @@ RUN apt-get update \
     && mv speedtest-cli /usr/bin/speedtest-cli \
     && chmod +x /usr/bin/speedtest-cli \
     && rm -rf /tmp/* /var/{cache,log}/* /var/lib/apt/lists/*
+
+# Replace original entrypoint.sh
+COPY entrypoint.sh .
